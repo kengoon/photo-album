@@ -1,0 +1,32 @@
+ScreenManager:
+    Screen:
+        name: "camera screen"
+        BoxLayout:
+            orientation: 'vertical'
+            Camera:
+                id: camera
+            BoxLayout:
+                size_hint_y: .2
+                Button:
+                    text: "stop" if camera.play else "play"
+                    on_release:
+                        camera.play = not camera.play
+                Button:
+                    text: "capture"
+                    on_release: app.take_picture(camera)
+                Button:
+                    text: "view album"
+                    on_release: root.current = "album screen"
+    Screen:
+        name: "album screen"
+        on_enter: app.create_album2(grid)
+#        on_leave: grid.clear_widgets()
+        BoxLayout:
+            orientation: "vertical"
+            Button:
+                size_hint_y: .15
+                text: "Back"
+                on_release: root.current = "camera screen"
+            GridLayout:
+                id: grid
+                cols: 4
